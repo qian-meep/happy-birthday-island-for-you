@@ -32,7 +32,7 @@ const DIARY:Record<string,{title:string;note:(s:WorldSave)=>string}>={
  parkPlayed:{title:'无所事事也很好',note:()=>'在公园浪费了一点时间。'},
  sandWritten:{title:'写给大海的话',note:()=>'写下的话，大海听见了。'},
  cloudscapeSunset:{title:'雨停之后',note:()=>'大雨过后的天空好漂亮。'},
- greenFlash:{title:'看到了绿光',note:()=>'来自凡尔纳的小说与侯麦的电影《绿光》。'},
+ greenFlash:{title:'看到了一行白鸟',note:()=>'奔赴下一个远方'},
  firstLight:{title:'第一缕光',note:()=>'天亮时，海面上的第一缕光。'},
  rainbow:{title:'雨后的彩虹',note:()=>'雨停以后，它真的出现了。'},
  firstPhoto:{title:'第一张拍立得',note:()=>'这一次，你来拍下这个世界吧。'},
