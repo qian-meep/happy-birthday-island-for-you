@@ -52,8 +52,6 @@ export const flowers=[
 export const papers=[{id:'ivory',name:'奶油纸',color:'#efe3cb'},{id:'kraft',name:'牛皮纸',color:'#c7a57a'},{id:'rose',name:'雾粉纸',color:'#e2bcb6'},{id:'mist',name:'雾蓝纸',color:'#bccbd6'},{id:'tissue',name:'雪梨纸',color:'#f7f4ee'}];
 export const ribbons=[{id:'pink',name:'粉色',color:'#d68fa1'},{id:'green',name:'墨绿',color:'#4f7466'},{id:'cream',name:'米白',color:'#eadfc4'},{id:'wine',name:'酒红',color:'#97404f'}];
 export const menu=[
- {id:'chicken',name:'椰子鸡',note:'热气腾腾，慢一点吃。',price:'一整个好心情',kind:'bowl'},
- {id:'jelly',name:'椰奶冻',note:'留一点甜，给今天。',price:'一小口夏天',kind:'jelly'},
  {id:'shaomai',name:'虾饺',note:'刚出笼，热腾腾的香。',price:'一份惦记',kind:'dumpling'},
  {id:'rice',name:'煲仔饭',note:'锅巴焦香，米饭热乎乎。',price:'一锅踏实',kind:'rice'},
  {id:'cheungfun',name:'肠粉',note:'米香柔软，淋上鲜甜酱汁。',price:'一卷温柔',kind:'cheungfun'},
