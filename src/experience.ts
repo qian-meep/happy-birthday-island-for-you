@@ -4,4 +4,10 @@ export const SUNSET_RATE=48/TIMING.sunset;
 export const greenRay={
  title:'你当像鸟飞往你的山',
  note:'无论你成为谁，无论你把自己变成了什么，那就是你本来的样子。',
- };
+ sources:[
+  {
+   label:'《你当像鸟飞往你的山》',
+   url:'https://book.douban.com/subject/33440205/blockquotes'
+  }
+ ]
+};
