@@ -1,5 +1,5 @@
 /** Shared pacing for the scene, its illustration and the next available action. */
-export const TIMING={sunset:26,dawn:8,rain:8,hillWalk:7,intro:4.5,lamps:3.2,fireworks:6,rainbow:60} as const;
+export const TIMING={sunset:26,dawn:10,rain:10,hillWalk:7,intro:4.5,lamps:3.2,fireworks:8,rainbow:60} as const;
 export const SUNSET_RATE=48/TIMING.sunset;
 export const greenRay={
  title:'你当像鸟飞往你的山',
