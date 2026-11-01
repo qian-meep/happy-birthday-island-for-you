@@ -415,26 +415,21 @@ export function Dish({kind}:{kind:string}){
  const group=useRef<THREE.Group>(null);
 
  useFrame(()=>{
-  const g=group.current;
-  if(!g||g.userData.env)return;
+ const g=group.current;
+ if(!g||g.userData.env)return;
 
-  g.traverse(o=>{
-   const m=(o as THREE.Mesh).material
-    as THREE.MeshStandardMaterial|undefined;
+ g.traverse(o=>{
+  const mesh=o as THREE.Mesh;
+  const m=mesh.material as THREE.MeshStandardMaterial|undefined;
 
-   if(
-    m &&
-    'envMap' in m &&
-    !(m instanceof THREE.SpriteMaterial)
-   ){
-    m.envMap=env;
-    m.envMapIntensity=.55;
-    m.needsUpdate=true;
-   }
-  });
-
-  g.userData.env=true;
+  if(m){
+   m.envMap=env;
+   m.needsUpdate=true;
+  }
  });
+
+ g.userData.env=true;
+});
 
  return <group ref={group}>
  {kind==='rice'
