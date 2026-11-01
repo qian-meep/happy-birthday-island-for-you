@@ -20,7 +20,7 @@ const say=(text:string,ms=3800)=>{moment.said=text;moment.saidUntil=performance.
 /** A tap anywhere on the world while a moment is open catches it. Called by the world's tap handler. */
 export function catchMoment(){const c=moment.call;if(!c||performance.now()>moment.callUntil)return false;moment.call=null;
  const s=useIsland.getState();s.dispatch({type:'surprise',id:c});sparkleSound();chime();burst.at=performance.now();burst.kind=c;
- say({greenFlash:'凡尔纳《绿光》',firstLight:'今天的第一缕光。',rainbow:'彩虹被你看见了。'}[c],4500);return true;}
+ say({greenFlash:'飞鸟',firstLight:'今天的第一缕光。',rainbow:'彩虹被你看见了。'}[c],4500);return true;}
 const burst={at:0,kind:null as Catch|null};
 function glowTexture(inner:string,outer:string){const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d')!;const r=g.createRadialGradient(64,64,0,64,64,64);r.addColorStop(0,inner);r.addColorStop(.35,outer);r.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=r;g.fillRect(0,0,128,128);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;}
 // A flat band; the colour runs across it from red (outside) to violet (inside), and it fades toward both feet.
@@ -45,7 +45,7 @@ export default function Moments(){
   if(s.place==='sunset'&&s.weather==='clear'&&!s.object){const rate=reduced?6:(s.sitting?1.5:1)*SUNSET_RATE,p=sunsetClock.progress;moment.kind='sunset';moment.remaining=Math.max(0,(SUNSET_TOUCH-p)/rate);moment.progress=Math.min(1,p/SUNSET_TOUCH);
    if(p>17&&!fired.has('birds')){fired.add('birds');flockStart.current=now;gullCall();}
    if(p>38&&!fired.has('path')){fired.add('path');dir.copy(atmosphere.sunDir).setY(0).normalize();for(let i=0;i<5;i++)setTimeout(()=>poke('glint',camera.position.clone().addScaledVector(dir,9+i*3.5).setY(-.02).add(new THREE.Vector3((Math.random()-.5)*1.5,0,(Math.random()-.5)*1.5))),i*260);}
-   if(p>=SUNSET_TOUCH&&!fired.has('touch')){fired.add('touch');s.dispatch({type:'surprise',id:'greenFlash'});burst.at=now;burst.kind='greenFlash';say('凡尔纳《绿光》',4500);}}
+   if(p>=SUNSET_TOUCH&&!fired.has('touch')){fired.add('touch');s.dispatch({type:'surprise',id:'greenFlash'});burst.at=now;burst.kind='greenFlash';say('飞鸟',4500);}}
   // Sunrise: fourteen seconds of dawn once she is at the top.
   else if(s.place==='sunrise'&&s.sunriseStep>=3){const d=sunriseDawn();moment.kind='sunrise';moment.remaining=(1-d)*(reduced?2:DAWN);moment.progress=d;
    if(d>.3&&!fired.has('birds')){fired.add('birds');flockStart.current=now;gullCall();}
