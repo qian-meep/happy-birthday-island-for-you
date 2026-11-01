@@ -35,37 +35,105 @@ export function dishGeometry(kind:string):Parts {
  const box=(p:Vec3,size:Vec3,c:string,rot:Vec3=[0,0,0],surface:Surface='matte')=>add(new THREE.BoxGeometry(...size),c,p,[1,1,1],rot,surface);
  const ring=(r:number,y:number,c:string,t=.005,surface:Surface='ceramic')=>add(new THREE.TorusGeometry(r,t,5,32),c,[0,y,0],[1,1,1],[Math.PI/2,0,0],surface);
  const plate=(r:number)=>{add(lathe([[0,0],[r*.72,0],[r,.025],[r,.035],[r*.75,.012],[0,.012]]),'#f5edda');ring(r-.012,.032,'#76968a',.003);};
- if(kind==='bowl'){
-  add(new THREE.CylinderGeometry(.2,.215,.025,24),'#40544d',[0,.018,0],[1,1,1],[0,0,0],'matte');
-  add(lathe([[0,0],[.19,0],[.25,.035],[.283,.1],[.29,.139],[.279,.144],[.27,.132],[.26,.065],[0,.04]]),'#c7d1ca',[0,.03,0],[1,1,1],[0,0,0],'metal');
-  ring(.284,.17,'#e3e8dc',.007,'metal');
-  for(const side of [-1,1])add(new THREE.TorusGeometry(.035,.008,5,16),'#687e73',[side*.304,.142,0],[1,1,1],[0,Math.PI/2,0],'metal');
-  add(new THREE.CylinderGeometry(.266,.266,.008,32),'#eadbb3',[0,.154,0]);
-  // Irregular golden chicken, white coconut, dates and scallions break the soup's surface.
-  for(let i=0;i<7;i++){const a=i*2.399,r=.08+(i%3)*.05; sphere([Math.cos(a)*r,.17,Math.sin(a)*r],[.049,.024,.032],i%2?'#e7c993':'#f6e6bc',[0,a,.15]);}
-  for(let i=0;i<5;i++){const a=i*1.3+.5;box([Math.cos(a)*.18,.17,Math.sin(a)*.18],[.085,.014,.026],'#fff8e9',[.1,a,.1],'ceramic');}
-  for(let i=0;i<4;i++){const a=i*1.8+.2;sphere([Math.cos(a)*.15,.172,Math.sin(a)*.15],[.019,.012,.025],'#963f32',[0,a,0]);}
-  for(let i=0;i<10;i++){const a=i*2.4,r=.07+(i%4)*.048;box([Math.cos(a)*r,.184,Math.sin(a)*r],[.016,.004,.007],i%3?'#7fa15a':'#d67540',[0,a,0]);}
-  // Saucer, chopped dipping sauce and a cut lime, all part of the same batches.
-  add(lathe([[0,0],[.052,0],[.075,.022],[.07,.03],[.058,.02],[0,.015]],20),'#f4e8cf',[.39,.008,.17]);
-  add(new THREE.CylinderGeometry(.058,.058,.003,20),'#97673f',[.39,.03,.17]);
-  for(let i=0;i<5;i++)box([.39+Math.cos(i*2.4)*.03,.034,.17+Math.sin(i*2.4)*.03],[.012,.004,.01],i%2?'#a4b77b':'#ca6b3c');
-  sphere([.38,.03,.04],[.037,.023,.035],'#96ab60');
-  // Young coconut with a trimmed cream crown and a bent paper straw.
-  sphere([-.4,.105,-.08],[.092,.105,.092],'#b1bc77',[0,0,0],'matte');
-  add(new THREE.CylinderGeometry(.042,.072,.045,16),'#eee4c8',[-.4,.194,-.08]);
-  box([-.39,.27,-.08],[.01,.14,.01],'#cd8f91',[0,0,-.12]);box([-.37,.337,-.08],[.045,.01,.01],'#cd8f91',[0,0,-.25]);
- } else if(kind==='jelly'){
-  plate(.213);
-  add(lathe([[0,0],[.065,0],[.135,.035],[.166,.085],[.178,.146],[.168,.156],[.157,.14],[.14,.08],[.08,.035],[0,.03]]),'#946c49',[0,.03,0],[1,1,1],[0,0,0],'matte');
-  ring(.164,.181,'#f6edce',.009);
-  // Small facets read as coconut fibres without an extra texture or draw call.
-  for(let i=0;i<16;i++){const a=i*Math.PI/8;box([Math.sin(a)*.159,.13,Math.cos(a)*.159],[.003,.06,.004],i%2?'#a47c55':'#785538',[.12*Math.sin(a),a,.12*Math.cos(a)]);}
-  for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)box([x*.063,.157,z*.063],[.057,.049,.057],(x+z)%2?'#fff9e8':'#f4eedc',[0,(x-z)*.035,0],'ceramic');
-  for(let i=0;i<5;i++)box([Math.sin(i*2)*.06,.185,Math.cos(i*2)*.06],[.028,.003,.006],'#fffdf2',[0,i,0],'ceramic');
-  sphere([.046,.189,-.05],[.025,.004,.012],'#7e9e65',[0,.4,0],'matte');
-  box([.22,.035,.02],[.016,.009,.19],'#bea77e',[0,-.3,0]);sphere([.245,.035,-.068],[.028,.005,.04],'#bea77e');
- } else if(kind==='dumpling'){
+ if(kind==='rice'){
+  // 煲仔饭砂锅
+  add(
+   lathe([
+    [0,0],
+    [.16,0],
+    [.2,.025],
+    [.22,.08],
+    [.21,.13],
+    [.18,.15],
+    [0,.15]
+   ]),
+   '#b96f3c',
+   [0,.02,0],
+   [1,1,1],
+   [0,0,0],
+   'matte'
+  );
+  // 米饭
+  for(let i=0;i<24;i++){
+   const a=i*2.399;
+   const r=(i%5)*.025;
+   sphere(
+    [Math.cos(a)*r,.17+(i%3)*.006,Math.sin(a)*r],
+    [.018,.012,.018],
+    '#fff8e8'
+   );
+  }
+  // 腊肠
+  for(let i=0;i<4;i++){
+   add(
+    new THREE.CylinderGeometry(.014,.014,.08,12),
+    '#a83d2c',
+    [-.07+i*.045,.2,.045],
+    [1,1,1],
+    [0,0,Math.PI/2],
+    'matte'
+   );
+  }
+  // 青菜
+  for(let i=0;i<3;i++){
+   sphere(
+    [.08,.185,-.06+i*.035],
+    [.035,.008,.018],
+    '#5f9b45',
+    [0,0,0],
+    'matte'
+   );
+  }
+  // 煎蛋
+  add(
+   new THREE.CylinderGeometry(.045,.045,.006,20),
+   '#fff6d5',
+   [.02,.19,-.045],
+   [1,1,1],
+   [0,0,0],
+   'ceramic'
+  );
+  sphere(
+   [.02,.197,-.045],
+   [.018,.012,.018],
+   '#f2a51b',
+   [0,0,0],
+   'matte'
+  );
+ } else if(kind==='cheungfun'){
+  // 肠粉餐盘
+  plate(.2);
+  // 三卷肠粉
+  for(let i=0;i<3;i++){
+   add(
+    new THREE.CylinderGeometry(.025,.025,.14,20),
+    '#fffdf5',
+    [-.07+i*.07,.065,0],
+    [1,1,1],
+    [0,0,Math.PI/2],
+    'ceramic'
+   );
+  }
+  // 酱油
+  add(
+   new THREE.CylinderGeometry(.12,.12,.004,24),
+   '#6d351f',
+   [0,.093,.01],
+   [1,1,1],
+   [0,0,0],
+   'matte'
+  );
+  // 葱花
+  for(let i=0;i<8;i++){
+   const a=i*.8;
+   box(
+    [Math.cos(a)*.09,.098,Math.sin(a)*.05],
+    [.012,.003,.004],
+    '#5b9940',
+    [0,a,0],
+    'matte'
+   );
+  } else if(kind==='dumpling'){
   add(lathe([[0,0],[.22,0],[.22,.08],[.211,.09],[.204,.08],[.204,.014],[0,.014]]),'#c8a26b',[0,.02,0],[1,1,1],[0,0,0],'matte');
   add(new THREE.CylinderGeometry(.203,.203,.006,32),'#f2e7cd',[0,.04,0]);
   ring(.215,.032,'#ab8553',.006,'matte');ring(.215,.104,'#e2c18c',.007,'matte');
@@ -81,14 +149,75 @@ export function dishGeometry(kind:string):Parts {
    add(new THREE.IcosahedronGeometry(.023,1),'#eca13d',[x,.174,z],[1,.65,1]);
    for(let j=0;j<3;j++)add(new THREE.IcosahedronGeometry(.006,0),'#f3b751',[x+Math.cos(j*2.1)*.02,.163,z+Math.sin(j*2.1)*.02]);
   }
- } else if(kind==='milk'){
-  add(new THREE.CylinderGeometry(.085,.085,.009,24),'#c5a479',[0,.012,0],[1,1,1],[0,0,0],'matte');
-  add(lathe([[0,0],[.055,0],[.061,.007],[.066,.208],[.059,.208],[.054,.012],[0,.012]]),'#e9f3e8',[0,.02,0],[1,1,1],[0,0,0],'glass');
-  add(new THREE.CylinderGeometry(.059,.054,.155,24),'#f7f0db',[0,.108,0]);
-  ring(.063,.23,'#e3ece2',.003);
-  for(let i=0;i<7;i++){const a=i*2.4;sphere([Math.cos(a)*.04,.188,Math.sin(a)*.04],[.004,.0015,.004],'#fffbed');}
-  box([.03,.123,.058],[.004,.15,.002],'#ffffff',[0,0,-.02],'glass');
- }
+ } else if(kind==='bubbletea'){
+  // 透明杯底
+  add(
+   new THREE.CylinderGeometry(.085,.085,.009,24),
+   '#c5a479',
+   [0,.012,0],
+   [1,1,1],
+   [0,0,0],
+   'matte'
+  );
+  // 透明杯身
+  add(
+   lathe([
+    [0,0],
+    [.055,0],
+    [.061,.007],
+    [.071,.22],
+    [.064,.225],
+    [.054,.012],
+    [0,.012]
+   ]),
+   '#e9f3e8',
+   [0,.02,0],
+   [1,1,1],
+   [0,0,0],
+   'glass'
+  );
+  // 奶茶
+  add(
+   new THREE.CylinderGeometry(.064,.058,.19,24),
+   '#bd8050',
+   [0,.12,0],
+   [1,1,1],
+   [0,0,0],
+   'matte'
+  );
+  // 奶泡
+  add(
+   new THREE.CylinderGeometry(.063,.063,.012,24),
+   '#efd2a9',
+   [0,.218,0]
+  );
+  // 珍珠
+  for(let i=0;i<18;i++){
+   const a=i*2.399;
+   const r=.012+(i%4)*.011;
+   sphere(
+    [Math.cos(a)*r,.038+(i%3)*.012,Math.sin(a)*r],
+    [.012,.012,.012],
+    '#3a211b',
+    [0,0,0],
+    'matte'
+   );
+  }
+  // 吸管
+  box(
+   [.025,.34,0],
+   [.008,.27,.008],
+   '#d78298',
+   [0,0,-.16],
+   'matte'
+  );
+  box(
+   [.048,.47,0],
+   [.06,.008,.008],
+   '#d78298',
+   [0,0,0],
+   'matte'
+  );
  const baked:Parts={};for(const surface of Object.keys(buckets) as Surface[]){const parts=buckets[surface];if(parts.length){baked[surface]=mergeGeometries(parts,false)!;parts.forEach(g=>g.dispose());}}
  cache.set(kind,baked);return baked;
 }
@@ -103,6 +232,6 @@ export default function Dish({kind,position}:{kind:string;position:Vec3}){
  useFrame(()=>{if(!group.current)return;const t=(performance.now()-tapAt.current)/1000;if(t>1){group.current.scale.set(1,1,1);return;}const k=Math.sin(t*18)*Math.exp(-t*5)*.07;group.current.scale.set(1+k,1-k,1+k);});
  return <group position={position} ref={group} onClick={e=>{if(e.delta>8)return;e.stopPropagation();const dish=menu.find(m=>m.kind===kind);if(!dish)return;if(!reduced)tapAt.current=performance.now();chime();useIsland.getState().notify(dish.note);}}>
   {(Object.keys(parts) as Surface[]).map(surface=><mesh key={surface} geometry={parts[surface]} material={surfaces[surface]} dispose={null}/>)}
-  {!reduced&&(kind==='bowl'||kind==='dumpling')&&<Steam/>}
+  {!reduced&&(kind==='rice'||kind==='dumpling'||kind==='cheungfun')&&<Steam/>}
  </group>;
 }
