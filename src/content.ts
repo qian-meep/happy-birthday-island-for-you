@@ -5,7 +5,7 @@ export type ObjectId = 'journal'|'wall'|'menu'|'bouquet'|'postcards'|'sand'|'cam
 export type Vec3 = [number,number,number];
 // Who the island is for and who it is from. `friend` is how the island addresses her: on the house, the cake card,
 // the envelope and the phone. `brand` is the word next to the star in the top-left corner.
-export const site={friend:'岛主',from:'你的朋友',brand:'Hi'};
+export const site={friend:'十七',from:'你的朋友',brand:'Hi'};
 /** The island's "today" is the day she visits: the journal, the phone and the welcome all show it. */
 export const today=(()=>{const d=new Date();return {month:d.getMonth()+1,day:d.getDate()};})();
 export const places:Record<PlaceId,{name:string;en:string;description:string;position:Vec3;camera:Vec3;target:Vec3}> = {
@@ -51,7 +51,7 @@ export const flowers=[
 ];
 export const papers=[{id:'ivory',name:'奶油纸',color:'#efe3cb'},{id:'kraft',name:'牛皮纸',color:'#c7a57a'},{id:'rose',name:'雾粉纸',color:'#e2bcb6'},{id:'mist',name:'雾蓝纸',color:'#bccbd6'},{id:'tissue',name:'雪梨纸',color:'#f7f4ee'}];
 export const ribbons=[{id:'pink',name:'粉色',color:'#d68fa1'},{id:'green',name:'墨绿',color:'#4f7466'},{id:'cream',name:'米白',color:'#eadfc4'},{id:'wine',name:'酒红',color:'#97404f'}];
-export const menu=[{id:'chicken',name:'椰子鸡',note:'热气腾腾，慢一点吃。',price:'一整个好心情',kind:'bowl'},{id:'jelly',name:'椰奶冻',note:'留一点甜，给今天。',price:'一小口夏天',kind:'jelly'},{id:'shaomai',name:'咸蛋黄烧卖',note:'刚出笼，咸蛋黄的香。',price:'一份惦记',kind:'dumpling'},{id:'milk',name:'牛奶',note:'和烧卖一起，刚刚好。',price:'一杯刚刚好',kind:'milk'}];
+export const menu=[{id:'chicken',name:'椰子鸡',note:'热气腾腾，慢一点吃。',price:'一整个好心情',kind:'bowl'},{id:'jelly',name:'椰奶冻',note:'留一点甜，给今天。',price:'一小口夏天',kind:'jelly'},{id:'shaomai',name:'虾饺',note:'刚出笼，热腾腾的香。',price:'一份惦记',kind:'dumpling'},{id:'milk',name:'牛奶',note:'和烧卖一起，刚刚好。',price:'一杯刚刚好',kind:'milk'}];
 export type TrackId='arrival'|'home'|'diner'|'sunrise'|'ending';
 // The five original tracks retained at the user's request. Birthday music is synthesized separately.
 // `start` skips into a song (seconds).
