@@ -86,7 +86,14 @@ function SunriseCard(){const s=useIsland();const [light,setLight]=useState(false
 function CloudCard(){const s=useIsland();
  if(s.weather==='rain')return null;
  if(s.weather==='glow')return <div className="narrative-card compact-card"><h3>云层之后原来这么漂亮！</h3><button className="ink-button" onClick={()=>s.viewRainbow()}>看看雨后的整座岛 <ArrowRight size={16}/></button></div>;
- if(s.cloudView==='inside')return <button className="scene-whisper whisper-button" onClick={()=>s.open('green-ray')}><BookOpen size={15}/>窗边有一本《绿光》</button>;
+ if(s.cloudView==='inside')
+ return <button
+  className="scene-whisper whisper-button"
+  onClick={()=>s.open('green-ray')}
+ >
+  <BookOpen size={15}/>
+  窗边有一本《你当像鸟飞往你的山》
+ </button>;
  return <div className="narrative-card compact-card"><h3>如果下雨，就在这里待一会儿。</h3><button className="ink-button" onClick={()=>s.setCloudView('inside')}>进图书馆坐坐 <ArrowRight size={16}/></button></div>;
 }
 export function SceneActions(){const s=useIsland();const [more,setMore]=useState(false);
