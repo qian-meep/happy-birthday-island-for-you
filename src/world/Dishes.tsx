@@ -5,7 +5,7 @@ import {useTexture} from '@react-three/drei';
 import * as THREE from 'three';
 
 // The diner's dishes, modelled after the real thing: a coconut chicken hotpot, coconut milk jelly in a coconut
-// shell, glutinous-rice shaomai with salted egg yolk in a bamboo steamer, and a glass of milk.
+// // shell, shrimp dumplings in a bamboo steamer, and a cup of bubble tea.
 // Sizes are in island units (a dinner plate is about .5 across); each dish sits on y = 0.
 
 let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646;};
@@ -85,44 +85,430 @@ export function CoconutJelly(){
  </group>;
 }
 
-/** 咸蛋黄烧卖: four glutinous-rice shaomai with frilled open tops and salted egg yolk, in a bamboo steamer. */
-export function Shaomai(){
- const body=useMemo(()=>{const g=lathe([[0,0],[.042,0],[.052,.02],[.055,.05],[.05,.075],[.038,.095],[.034,.104],[.044,.116],[.056,.122],[.058,.124]],36);
-  // Pleats: the wrapper gathers in folds that open into a frill at the top.
-  const p=g.attributes.position as THREE.BufferAttribute;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i);const a=Math.atan2(z,x);const k=1+Math.sin(a*16)*.06*THREE.MathUtils.smoothstep(y,.06,.124)+Math.sin(a*16)*.015;p.setX(i,x*k);p.setZ(i,z*k);p.setY(i,y+Math.sin(a*16)*.004*THREE.MathUtils.smoothstep(y,.1,.124));}
-  g.computeVertexNormals();return g;},[]);
- const grains=useMemo(()=>{seed=29;return Array.from({length:14},()=>{const a=rnd()*6.28,r=rnd()*.028;return [Math.cos(a)*r,.112+rnd()*.008,Math.sin(a)*r] as [number,number,number];});},[]);
- const slats=useMemo(()=>{const c=document.createElement('canvas');c.width=128;c.height=32;const g=c.getContext('2d')!;for(let x=0;x<128;x+=8){g.fillStyle=x%16?'#d8b67a':'#caa465';g.fillRect(x,0,8,32);}g.fillStyle='#b48d50';g.fillRect(0,0,128,3);g.fillRect(0,29,128,3);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=THREE.RepeatWrapping;t.repeat.set(6,1);return t;},[]);
+/** 虾饺：四只透明虾饺，放在竹蒸笼中。 */
+export function HarGow(){
+ const body=useMemo(()=>lathe([
+  [0,0],[.04,0],[.052,.025],[.055,.06],
+  [.048,.09],[.035,.112],[.03,.12]
+ ],36),[]);
+
+ const shrimp=useMemo(()=>chunk(.025,[1.5,.45,.7],.12),[]);
+
+ const slats=useMemo(()=>{
+  const c=document.createElement('canvas');
+  c.width=128;
+  c.height=32;
+
+  const g=c.getContext('2d')!;
+  for(let x=0;x<128;x+=8){
+   g.fillStyle=x%16?'#d8b67a':'#caa465';
+   g.fillRect(x,0,8,32);
+  }
+
+  g.fillStyle='#b48d50';
+  g.fillRect(0,0,128,3);
+  g.fillRect(0,29,128,3);
+
+  const t=new THREE.CanvasTexture(c);
+  t.colorSpace=THREE.SRGBColorSpace;
+  t.wrapS=THREE.RepeatWrapping;
+  t.repeat.set(6,1);
+  return t;
+ },[]);
+
  return <group>
-  {/* Bamboo steamer with a paper liner. */}
-  <mesh position={[0,.045,0]} castShadow><cylinderGeometry args={[.21,.21,.09,40,1,true]}/><meshStandardMaterial map={slats} roughness={.8} side={THREE.DoubleSide}/></mesh>
-  <mesh position={[0,.012,0]}><cylinderGeometry args={[.205,.205,.012,40]}/><meshStandardMaterial color="#cfac6f" roughness={.85}/></mesh>
-  <mesh position={[0,.02,0]} rotation={[-Math.PI/2,0,0]}><circleGeometry args={[.19,40]}/><meshStandardMaterial color="#f3ead6" roughness={.9}/></mesh>
-  {[[-.07,-.06],[.07,-.06],[-.07,.07],[.07,.07]].map(([x,z],i)=><group key={i} position={[x,.02,z]} rotation={[0,i*.7,0]} scale={1.08}>
-   <mesh geometry={body} castShadow><meshPhysicalMaterial color="#f1e8cf" roughness={.38} clearcoat={.3} sheen={.6} sheenColor="#fff6dc" side={THREE.DoubleSide}/></mesh>
-   {/* Soy-glazed glutinous rice showing in the open top, crowned with crumbled salted egg yolk. */}
-   <mesh position={[0,.108,0]} rotation={[-Math.PI/2,0,0]}><circleGeometry args={[.036,20]}/><meshStandardMaterial color="#a7743f" roughness={.55}/></mesh>
-   {grains.map((g,k)=><mesh key={k} position={g} scale={[.006,.003,.004]} rotation={[0,k,0]}><sphereGeometry args={[1,6,4]}/><meshStandardMaterial color="#b9844b" roughness={.4}/></mesh>)}
-   <mesh position={[0,.122,0]} scale={[.022,.014,.022]}><icosahedronGeometry args={[1,1]}/><meshPhysicalMaterial color="#ee8a1f" roughness={.5} clearcoat={.3}/></mesh>
-   {[0,1,2].map(k=><mesh key={k} position={[Math.cos(k*2.1)*.016,.118,Math.sin(k*2.1)*.016]} scale={.006}><icosahedronGeometry args={[1,0]}/><meshStandardMaterial color="#f29b2e"/></mesh>)}
-  </group>)}
-  <Steam position={[0,.16,0]} height={.4} width={.11} count={4}/>
+  <mesh position={[0,.045,0]} castShadow>
+   <cylinderGeometry args={[.21,.21,.09,40,1,true]}/>
+   <meshStandardMaterial
+    map={slats}
+    roughness={.8}
+    side={THREE.DoubleSide}
+   />
+  </mesh>
+
+  <mesh position={[0,.012,0]}>
+   <cylinderGeometry args={[.205,.205,.012,40]}/>
+   <meshStandardMaterial color="#cfac6f" roughness={.85}/>
+  </mesh>
+
+  <mesh position={[0,.02,0]} rotation={[-Math.PI/2,0,0]}>
+   <circleGeometry args={[.19,40]}/>
+   <meshStandardMaterial color="#f3ead6" roughness={.9}/>
+  </mesh>
+
+  {[[-.07,-.06],[.07,-.06],[-.07,.07],[.07,.07]].map(([x,z],i)=>
+   <group
+    key={i}
+    position={[x,.02,z]}
+    rotation={[0,i*.7,0]}
+   >
+    <mesh geometry={body} castShadow>
+     <meshPhysicalMaterial
+      color="#fff4df"
+      transparent
+      opacity={.82}
+      roughness={.3}
+      clearcoat={.5}
+      side={THREE.DoubleSide}
+     />
+    </mesh>
+
+    <mesh
+     geometry={shrimp}
+     position={[0,.065,0]}
+     rotation={[0,i*.8,0]}
+     scale={[1.2,1,1]}
+    >
+     <meshPhysicalMaterial
+      color="#e97955"
+      roughness={.35}
+      clearcoat={.4}
+     />
+    </mesh>
+
+    {[0,1,2,3].map(k=>
+     <mesh
+      key={k}
+      position={[
+       Math.cos(k*1.57)*.032,
+       .105,
+       Math.sin(k*1.57)*.032
+      ]}
+      rotation={[0,0,k*.5]}
+     >
+      <torusGeometry args={[.025,.0025,6,16,Math.PI]}/>
+      <meshStandardMaterial color="#fffaf0"/>
+     </mesh>
+    )}
+   </group>
+  )}
+
+  <Steam
+   position={[0,.16,0]}
+   height={.4}
+   width={.11}
+   count={4}
+  />
  </group>;
 }
 
-/** 牛奶: a straight glass tumbler of milk. */
-export function MilkGlass(){
- const glass=useMemo(()=>lathe([[0,0],[.052,0],[.056,.004],[.062,.2],[.058,.2],[.054,.008],[0,.008]],32),[]);
+
+/** 煲仔饭：砂锅米饭、腊肠、青菜和煎蛋。 */
+export function ClaypotRice(){
+ const pot=useMemo(()=>lathe([
+  [0,0],[.16,0],[.2,.025],[.22,.08],
+  [.21,.13],[.18,.15],[0,.15]
+ ]),[]);
+
+ const rice=useMemo(()=>{
+  seed=41;
+  return Array.from({length:22},()=>{
+   const a=rnd()*Math.PI*2;
+   const r=rnd()*.14;
+   return [
+    Math.cos(a)*r,
+    .17+rnd()*.012,
+    Math.sin(a)*r
+   ] as [number,number,number];
+  });
+ },[]);
+
  return <group>
-  <mesh position={[0,.02,0]}><cylinderGeometry args={[.075,.075,.008,24]}/><meshStandardMaterial color="#d7c3a0" roughness={.8}/></mesh>
-  <mesh geometry={glass} position={[0,.024,0]}><meshPhysicalMaterial color="#ffffff" roughness={.04} transparent opacity={.28} clearcoat={1} side={THREE.DoubleSide} depthWrite={false}/></mesh>
-  <mesh position={[0,.024+.085,0]}><cylinderGeometry args={[.0565,.0525,.155,28]}/><meshPhysicalMaterial color="#fbf8f0" roughness={.35} sheen={.5} sheenColor="#ffffff"/></mesh>
-  <mesh position={[0,.024+.163,0]} rotation={[-Math.PI/2,0,0]}><ringGeometry args={[.05,.0575,28]}/><meshStandardMaterial color="#ffffff" roughness={.2}/></mesh>
+  <mesh geometry={pot} position={[0,.02,0]} castShadow>
+   <meshStandardMaterial
+    color="#b96f3c"
+    roughness={.7}
+    side={THREE.DoubleSide}
+   />
+  </mesh>
+
+  <mesh position={[0,.155,0]} rotation={[-Math.PI/2,0,0]}>
+   <circleGeometry args={[.18,40]}/>
+   <meshStandardMaterial color="#f5eee0" roughness={.8}/>
+  </mesh>
+
+  {/* 米饭 */}
+  {rice.map((p,i)=>
+   <mesh
+    key={i}
+    position={p}
+    scale={[.018,.012,.018]}
+   >
+    <sphereGeometry args={[1,8,6]}/>
+    <meshStandardMaterial color="#fff8e8" roughness={.8}/>
+   </mesh>
+  )}
+
+  {/* 腊肠 */}
+  {[0,1,2,3].map(i=>
+   <mesh
+    key={i}
+    position={[-.07+i*.045,.19,.045]}
+    rotation={[0,0,Math.PI/2]}
+   >
+    <cylinderGeometry args={[.014,.014,.08,12]}/>
+    <meshStandardMaterial color="#a83d2c" roughness={.45}/>
+   </mesh>
+  )}
+
+  {/* 青菜 */}
+  {[0,1,2].map(i=>
+   <mesh
+    key={i}
+    position={[.08,.18,-.06+i*.035]}
+    scale={[.035,.008,.018]}
+   >
+    <sphereGeometry args={[1,8,6]}/>
+    <meshStandardMaterial color="#5f9b45" roughness={.7}/>
+   </mesh>
+  )}
+
+  {/* 煎蛋 */}
+  <mesh
+   position={[.02,.185,-.045]}
+   rotation={[-Math.PI/2,0,0]}
+  >
+   <circleGeometry args={[.045,20]}/>
+   <meshStandardMaterial color="#fff6d5" roughness={.5}/>
+  </mesh>
+
+  <mesh position={[.02,.19,-.045]}>
+   <sphereGeometry args={[.018,12,8]}/>
+   <meshStandardMaterial color="#f2a51b" roughness={.35}/>
+  </mesh>
+
+  <Steam
+   position={[0,.17,0]}
+   height={.5}
+   width={.13}
+   count={5}
+  />
  </group>;
 }
 
+
+/** 肠粉：白色米浆卷、酱油和葱花。 */
+export function CheungFun(){
+ return <group>
+  <mesh position={[0,.025,0]}>
+   <cylinderGeometry args={[.19,.19,.012,32]}/>
+   {china}
+  </mesh>
+
+  {[0,1,2].map(i=>
+   <group
+    key={i}
+    position={[-.07+i*.07,.055,0]}
+    rotation={[0,0,Math.PI/2]}
+   >
+    <mesh>
+     <cylinderGeometry args={[.025,.025,.14,20]}/>
+     <meshPhysicalMaterial
+      color="#fffdf5"
+      roughness={.25}
+      clearcoat={.5}
+     />
+    </mesh>
+
+    <mesh
+     position={[0,.071,0]}
+     rotation={[0,0,Math.PI/2]}
+    >
+     <circleGeometry args={[.023,20]}/>
+     <meshStandardMaterial
+      color="#f8f1df"
+      roughness={.5}
+     />
+    </mesh>
+   </group>
+  )}
+
+  {/* 酱油 */}
+  <mesh
+   position={[0,.084,.01]}
+   rotation={[-Math.PI/2,0,0]}
+  >
+   <circleGeometry args={[.12,32]}/>
+   <meshStandardMaterial
+    color="#6d351f"
+    roughness={.3}
+   />
+  </mesh>
+
+  {/* 葱花 */}
+  {[0,1,2,3,4,5,6,7].map(i=>
+   <mesh
+    key={i}
+    position={[
+     Math.cos(i*.8)*.09,
+     .09,
+     Math.sin(i*.8)*.05
+    ]}
+    scale={[.012,.003,.004]}
+   >
+    <sphereGeometry args={[1,6,4]}/>
+    <meshStandardMaterial color="#5b9940"/>
+   </mesh>
+  )}
+ </group>;
+}
+
+
+/** 珍珠奶茶：透明杯、奶茶、珍珠和吸管。 */
+export function BubbleTea(){
+ const glass=useMemo(()=>lathe([
+  [0,0],
+  [.062,0],
+  [.07,.008],
+  [.075,.22],
+  [.07,.225],
+  [.064,.008],
+  [0,.008]
+ ],32),[]);
+
+ const pearls=useMemo(()=>{
+  seed=53;
+
+  return Array.from({length:18},()=>{
+   const a=rnd()*Math.PI*2;
+   const r=rnd()*.045;
+
+   return [
+    Math.cos(a)*r,
+    .035+rnd()*.025,
+    Math.sin(a)*r
+   ] as [number,number,number];
+  });
+ },[]);
+
+ return <group>
+  {/* 杯底 */}
+  <mesh position={[0,.02,0]}>
+   <cylinderGeometry args={[.082,.082,.008,28]}/>
+   <meshStandardMaterial
+    color="#d7c3a0"
+    roughness={.8}
+   />
+  </mesh>
+
+  {/* 透明杯身 */}
+  <mesh geometry={glass} position={[0,.024,0]}>
+   <meshPhysicalMaterial
+    color="#ffffff"
+    roughness={.04}
+    transparent
+    opacity={.25}
+    clearcoat={1}
+    side={THREE.DoubleSide}
+    depthWrite={false}
+   />
+  </mesh>
+
+  {/* 奶茶 */}
+  <mesh position={[0,.125,0]}>
+   <cylinderGeometry args={[.066,.06,.19,32]}/>
+   <meshPhysicalMaterial
+    color="#c78b58"
+    roughness={.35}
+    clearcoat={.3}
+   />
+  </mesh>
+
+  {/* 奶泡 */}
+  <mesh
+   position={[0,.224,0]}
+   rotation={[-Math.PI/2,0,0]}
+  >
+   <circleGeometry args={[.067,32]}/>
+   <meshStandardMaterial
+    color="#f1d5ae"
+    roughness={.45}
+   />
+  </mesh>
+
+  {/* 珍珠 */}
+  {pearls.map((p,i)=>
+   <mesh
+    key={i}
+    position={p}
+    scale={[.012,.012,.012]}
+   >
+    <sphereGeometry args={[1,12,8]}/>
+    <meshStandardMaterial
+     color="#3a211b"
+     roughness={.3}
+     metalness={.05}
+    />
+   </mesh>
+  )}
+
+  {/* 吸管 */}
+  <mesh
+   position={[.018,.31,0]}
+   rotation={[0,0,-.18]}
+  >
+   <cylinderGeometry args={[.007,.007,.28,12]}/>
+   <meshStandardMaterial
+    color="#e58a9c"
+    roughness={.35}
+   />
+  </mesh>
+
+  {/* 吸管弯头 */}
+  <mesh
+   position={[.045,.45,0]}
+   rotation={[0,0,Math.PI/2]}
+  >
+   <torusGeometry args={[.025,.007,8,16,Math.PI/2]}/>
+   <meshStandardMaterial
+    color="#e58a9c"
+    roughness={.35}
+   />
+  </mesh>
+ </group>;
+}
+
+
+/** 菜品统一入口。 */
 export function Dish({kind}:{kind:string}){
- const env=useDishEnv();const group=useRef<THREE.Group>(null);
- // Hand the studio reflection to every material of the dish once it is mounted.
- useFrame(()=>{const g=group.current;if(!g||g.userData.env)return;g.traverse(o=>{const m=(o as THREE.Mesh).material as THREE.MeshStandardMaterial|undefined;if(m&&'envMap' in m&&!(m instanceof THREE.SpriteMaterial)){m.envMap=env;m.envMapIntensity=.55;m.needsUpdate=true;}});g.userData.env=true;});
- return <group ref={group}>{kind==='bowl'?<CoconutChicken/>:kind==='jelly'?<CoconutJelly/>:kind==='dumpling'?<Shaomai/>:kind==='milk'?<MilkGlass/>:null}</group>;}
+ const env=useDishEnv();
+ const group=useRef<THREE.Group>(null);
+
+ useFrame(()=>{
+  const g=group.current;
+  if(!g||g.userData.env)return;
+
+  g.traverse(o=>{
+   const m=(o as THREE.Mesh).material
+    as THREE.MeshStandardMaterial|undefined;
+
+   if(
+    m &&
+    'envMap' in m &&
+    !(m instanceof THREE.SpriteMaterial)
+   ){
+    m.envMap=env;
+    m.envMapIntensity=.55;
+    m.needsUpdate=true;
+   }
+  });
+
+  g.userData.env=true;
+ });
+
+ return <group ref={group}>
+  {kind==='bowl'
+   ? <CoconutChicken/>
+   : kind==='jelly'
+   ? <CoconutJelly/>
+   : kind==='dumpling'
+   ? <HarGow/>
+   : kind==='rice'
+   ? <ClaypotRice/>
+   : kind==='cheungfun'
+   ? <CheungFun/>
+   : kind==='bubbletea'
+   ? <BubbleTea/>
+   : null}
+ </group>;
+}
