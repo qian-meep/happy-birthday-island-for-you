@@ -24,7 +24,7 @@ const ROUTES:Route[]=[
 const ground=(x:number,z:number)=>Math.hypot(x,z-5.35)<2.1?1.142:Math.max(hillHeight(x,z),TOP+.012);
 type Reaction='hop'|'roll'|'stand'|'sneeze'|'dash';
 const REACTIONS:Reaction[]=['hop','roll','stand','sneeze','dash'];
-const brown='#a8653a',rust='#b87348',cream='#eddfbd',ear='#eee0c1',dark='#34413a',paw='#514238';
+const brown='#8f8b87',rust='#5f5b59',cream='#eeeae2',ear='#d8aaa8',dark='#292827',paw='#c7c1ba';
 function Body(){return <>
  <mesh position={[0,.27,0]} scale={[.28,.29,.4]} castShadow><sphereGeometry args={[1,14,10]}/><meshStandardMaterial color={brown}/></mesh>
  <group name="head" position={[0,.55,.28]}>
