@@ -16,14 +16,14 @@ export const places:Record<PlaceId,{name:string;en:string;description:string;pos
  park:{name:'无所事事公园',en:'NOWHERE TO RUSH',description:'可以什么也不做，也可以再荡一会儿秋千。',position:[-8.4,4.2,-1.6],camera:[-13.2,7.6,5.6],target:[-8.3,1.5,-1.5]},
  sunset:{name:'日落收藏处',en:'KEEP A LITTLE SUNSET',description:'那些一起看过的天空，收藏在这里。',position:[-7,2.3,8.7],camera:[-4.7,3.5,5.8],target:[-10.6,1.4,12.2]},
  sunrise:{name:'等天亮的山坡',en:'BEFORE THE WORLD WAKES',description:'从这里出发，回到起得很早很早的清晨。',position:[0,6.9,-8.5],camera:[6,9,-.5],target:[0,3,-8]},
- cloud:{name:'白房子与海',en:'AFTER THE RAIN',description:'如果下雨就在这里待一会儿。',position:[9,3.4,1.6],camera:[6.5,3.7,6.5],target:[8.6,1.9,1.8]},
+ cloud:{name:'闲人与海',en:'AFTER THE RAIN',description:'如果下雨就在这里待一会儿。',position:[9,3.4,1.6],camera:[6.5,3.7,6.5],target:[8.6,1.9,1.8]},
  celebration:{name:'为你亮起的夜晚',en:'A TABLE FOR YOU',description:'和你有关的都在这里。',position:[0,2,5.2],camera:[.4,6.5,14],target:[0,1.8,5.2]}
 };
 // Five optional memories. Finding all five brings an invitation; the journal and its button show how far she is.
 export const coreMemories=[
  {key:'homeSeen',name:'回家看看',place:'home',hint:'家里照片墙，桌上有一本手账。'},
  {key:'flowerMade',name:'包一束花',place:'flowers',hint:'花店的风铃在响，去选几枝喜欢的吧。'},
- {key:'dinerSeen',name:'吃点好吃的',place:'diner',hint:'整点吃的食堂今天也开着。'},
+ {key:'dinerSeen',name:'吃点好吃的',place:'diner',hint:'整点吃的食堂今天也可以整点吃的。'},
  {key:'sunsetSeen',name:'收藏一次日落',place:'sunset',hint:'傍晚的海边，坐下来等日落。'},
  {key:'sunriseReached',name:'等一次天亮',place:'sunrise',hint:'沿着山路上去，回到很早的清晨。'},
 ] as const;
