@@ -79,7 +79,7 @@ export default function RedPanda(){
  const hover={onPointerOver:(e:ThreeEvent<PointerEvent>)=>{if(e.pointerType==='mouse'){e.stopPropagation();document.body.style.cursor='pointer';}},onPointerOut:()=>{document.body.style.cursor='';}};
  return <group ref={root} scale={.78} onClick={tap} {...hover}><group ref={body}><Body/></group>
   {/* For keyboards and screen readers: an invisible button that travels with it. */}
-  <Html center position={[0,1.1,0]} zIndexRange={[25,0]}><button aria-label="咦，小熊猫" className="object-tag" onClick={()=>tap({stopPropagation(){},delta:0} as unknown as ThreeEvent<MouseEvent>)}><span aria-hidden="true"/></button></Html>
+  <Html center position={[0,1.1,0]} zIndexRange={[25,0]}><button aria-label="咦，点点" className="object-tag" onClick={()=>tap({stopPropagation(){},delta:0} as unknown as ThreeEvent<MouseEvent>)}><span aria-hidden="true"/></button></Html>
   {/* A wider, invisible hit area: a small animal should be easy to tap. */}
   <mesh position={[0,.4,0]} visible={false}><sphereGeometry args={[.62,8,6]}/><meshBasicMaterial/></mesh></group>;
 }
