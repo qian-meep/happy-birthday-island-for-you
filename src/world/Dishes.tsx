@@ -419,8 +419,7 @@ export function Dish({kind}:{kind:string}){
   if(!g||g.userData.env)return;
 
   g.traverse(o=>{
-   const m=(o as THREE.Mesh).material
-    as THREE.MeshStandardMaterial|undefined;
+   const m=(o as THREE.Mesh).material as THREE.MeshStandardMaterial|undefined;
 
    if(
     m &&
