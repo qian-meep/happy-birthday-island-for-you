@@ -11,7 +11,7 @@ export const today=(()=>{const d=new Date();return {month:d.getMonth()+1,day:d.g
 export const places:Record<PlaceId,{name:string;en:string;description:string;position:Vec3;camera:Vec3;target:Vec3}> = {
  home:{name:'我的家',en:'A LITTLE PLACE OF YOUR OWN',description:'窗外有大海。桌上有一本等你翻开的手账。',position:[7,4.9,-4.3],camera:[7.15,4.65,.45],target:[6.95,2.5,-4.5]},
  town:{name:'转角慢街',en:'THE SLOW STREETS',description:'拐个弯，也许正好闻到面包的香气。',position:[-.6,5,-1],camera:[-1,7.6,10],target:[-.3,2,-.6]},
- diner:{name:'好好吃饭食堂',en:'SOMETHING DELICIOUS',description:'今日也宜一本正经地，吃点好吃的。',position:[3.7,4.9,1.7],camera:[6.9,4.6,8.4],target:[3.7,2.1,3.4]},
+ diner:{name:'整点吃的食堂',en:'SOMETHING DELICIOUS',description:'早上吃什么中午吃什么晚上吃什么。',position:[3.7,4.9,1.7],camera:[6.9,4.6,8.4],target:[3.7,2.1,3.4]},
  flowers:{name:'花慢慢开',en:'THE FLOWER CORNER',description:'选几枝喜欢的花，把它们包成漂亮的花束。',position:[-4.2,4.9,1.1],camera:[-7.8,6.5,9],target:[-4.4,1.8,2.9]},
  park:{name:'无所事事公园',en:'NOWHERE TO RUSH',description:'可以什么也不做，也可以再荡一会儿秋千。',position:[-8.4,4.2,-1.6],camera:[-13.2,7.6,5.6],target:[-8.3,1.5,-1.5]},
  sunset:{name:'日落收藏处',en:'KEEP A LITTLE SUNSET',description:'那些一起看过的天空，收藏在这里。',position:[-7,2.3,8.7],camera:[-4.7,3.5,5.8],target:[-10.6,1.4,12.2]},
@@ -51,7 +51,14 @@ export const flowers=[
 ];
 export const papers=[{id:'ivory',name:'奶油纸',color:'#efe3cb'},{id:'kraft',name:'牛皮纸',color:'#c7a57a'},{id:'rose',name:'雾粉纸',color:'#e2bcb6'},{id:'mist',name:'雾蓝纸',color:'#bccbd6'},{id:'tissue',name:'雪梨纸',color:'#f7f4ee'}];
 export const ribbons=[{id:'pink',name:'粉色',color:'#d68fa1'},{id:'green',name:'墨绿',color:'#4f7466'},{id:'cream',name:'米白',color:'#eadfc4'},{id:'wine',name:'酒红',color:'#97404f'}];
-export const menu=[{id:'chicken',name:'椰子鸡',note:'热气腾腾，慢一点吃。',price:'一整个好心情',kind:'bowl'},{id:'jelly',name:'椰奶冻',note:'留一点甜，给今天。',price:'一小口夏天',kind:'jelly'},{id:'shaomai',name:'虾饺',note:'刚出笼，热腾腾的香。',price:'一份惦记',kind:'dumpling'},{id:'milk',name:'牛奶',note:'和烧卖一起，刚刚好。',price:'一杯刚刚好',kind:'milk'}];
+export const menu=[
+ {id:'chicken',name:'椰子鸡',note:'热气腾腾，慢一点吃。',price:'一整个好心情',kind:'bowl'},
+ {id:'jelly',name:'椰奶冻',note:'留一点甜，给今天。',price:'一小口夏天',kind:'jelly'},
+ {id:'shaomai',name:'虾饺',note:'刚出笼，热腾腾的香。',price:'一份惦记',kind:'dumpling'},
+ {id:'rice',name:'煲仔饭',note:'锅巴焦香，米饭热乎乎。',price:'一锅踏实',kind:'rice'},
+ {id:'cheungfun',name:'肠粉',note:'米香柔软，淋上鲜甜酱汁。',price:'一卷温柔',kind:'cheungfun'},
+ {id:'bubbletea',name:'珍珠奶茶',note:'甜一点，今天也值得。',price:'一杯快乐',kind:'bubbletea'}
+];
 export type TrackId='arrival'|'home'|'diner'|'sunrise'|'ending';
 // The five original tracks retained at the user's request. Birthday music is synthesized separately.
 // `start` skips into a song (seconds).
