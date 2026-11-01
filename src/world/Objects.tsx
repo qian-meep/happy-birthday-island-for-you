@@ -79,7 +79,12 @@ function Turntable(){const disc=useRef<THREE.Group>(null);useFrame((_,dt)=>{cons
  return <group ref={disc} position={[5.75,1.68,-2.99]}><Cylinder position={[0,0,0]} top={.21} bottom={.21} height={.02} color="#293e3c"/><Cylinder position={[0,.014,0]} top={.055} bottom={.055} height={.012} color="#c69588"/><Box position={[.09,.022,0]} size={[.05,.004,.012]} color="#f3e6d2"/></group>;}
 function Food({kind,position,scale=1}:{kind:string;position:Vec3;scale?:number}){return <group position={position} scale={scale}><Dish kind={kind}/></group>;}
 // Where each dish sits on the diner table (everything she has ordered stays on the table).
-const DINER_SPOTS:Record<string,Vec3>={bowl:[3.62,1.8,3.98],jelly:[2.98,1.8,4.13],dumpling:[4.24,1.8,3.8],milk:[4.3,1.8,4.24]};
+const DINER_SPOTS:Record<string,Vec3>={
+ rice:[3.62,1.8,3.98],
+ dumpling:[2.98,1.8,4.13],
+ cheungfun:[4.24,1.8,3.8],
+ bubbletea:[4.3,1.8,4.24]
+};
 function Tables(){const s=useIsland();const served=s.save.optional.foodMemories.map(id=>menu.find(m=>m.id===id)?.kind).filter(Boolean) as string[];return <>
  <Box position={[3.6,1.74,4]} size={[1.75,.12,.8]} color="#8e7051"/>{[-.65,.65].map(x=><Box key={x} position={[3.6+x,1.42,4]} size={[.09,.6,.6]} color="#786244"/>)}
  <Box position={[2.95,1.815,3.72]} size={[.36,.012,.47]} rotation={[0,.18,0]} color="#e9dac0" {...touch('diner',()=>{chime();s.open('menu');})}/><Suspense fallback={null}>{served.map(kind=><Food key={kind} position={DINER_SPOTS[kind]} kind={kind}/>)}</Suspense>
