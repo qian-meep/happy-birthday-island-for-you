@@ -23,7 +23,7 @@ export const places:Record<PlaceId,{name:string;en:string;description:string;pos
 export const coreMemories=[
  {key:'homeSeen',name:'回家看看',place:'home',hint:'家里照片墙，桌上有一本手账。'},
  {key:'flowerMade',name:'包一束花',place:'flowers',hint:'花店的风铃在响，去选几枝喜欢的吧。'},
- {key:'dinerSeen',name:'吃点好吃的',place:'diner',hint:'好好吃饭食堂今天也开着。'},
+ {key:'dinerSeen',name:'吃点好吃的',place:'diner',hint:'整点吃的食堂今天也开着。'},
  {key:'sunsetSeen',name:'收藏一次日落',place:'sunset',hint:'傍晚的海边，坐下来等日落。'},
  {key:'sunriseReached',name:'等一次天亮',place:'sunrise',hint:'沿着山路上去，回到很早的清晨。'},
 ] as const;
